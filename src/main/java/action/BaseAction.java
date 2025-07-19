@@ -10,10 +10,12 @@ import utility.SystemPropertyUtil;
 import static io.restassured.RestAssured.given;
 
 public class BaseAction {
+    protected final String basePath;
+
     public BaseAction() {
         SystemPropertyUtil.loadAllPropsFromFiles();
-        RestAssured.baseURI =SystemPropertyUtil.getBaseApiUrl();
-        RestAssured.basePath = "/api/" + SystemPropertyUtil.getVersion();
+        RestAssured.baseURI = SystemPropertyUtil.getBaseApiUrl();
+        basePath = "/api/" + SystemPropertyUtil.getVersion();
     }
 
     public RestAssuredResponseImpl sendRequest(RequestSpecification requestSpecification, Method method) {

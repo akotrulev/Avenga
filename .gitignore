@@ -44,3 +44,4 @@ bin/
 .DS_Store
 /Avenga-all-1.0-SNAPSHOT-tests.jar
 /.idea/
+/allure-results/

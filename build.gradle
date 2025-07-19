@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id("io.freefair.lombok") version "8.14"
 }
 
 group = 'org.example'
@@ -25,6 +26,7 @@ dependencies {
     implementation group: 'io.qameta.allure', name: 'allure-testng', version: "${allure}"
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: "${jacksonCore}"
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "${jacksonDatabind}"
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.5")
 
 }
 

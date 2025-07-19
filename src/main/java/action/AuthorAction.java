@@ -3,11 +3,12 @@ package action;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.internal.RestAssuredResponseImpl;
 import io.restassured.specification.RequestSpecification;
+import pojo.author.AuthorPojo;
 
 public class AuthorAction extends BaseAction {
-    private final String GET_PUT_DELETE_BY_ID_PATH = "/Authors/{id}";
-    private final String GET_POST_PATH = "/Authors";
-    private final String GET_BY_BOOK_PATH = "/Authors/authors/books/{idBook}";
+    private final String GET_PUT_DELETE_BY_ID_PATH = basePath + "/Authors/{id}";
+    private final String GET_POST_PATH = basePath + "/Authors";
+    private final String GET_BY_BOOK_PATH = basePath + "/Authors/authors/books/{idBook}";
 
     public RestAssuredResponseImpl delete(String id) {
         RequestSpecification requestSpecification = new RequestSpecBuilder()
@@ -39,17 +40,19 @@ public class AuthorAction extends BaseAction {
         return super.get(requestSpecification);
     }
 
-    public RestAssuredResponseImpl post() {
+    public RestAssuredResponseImpl post(AuthorPojo body) {
         RequestSpecification requestSpecification = new RequestSpecBuilder()
                 .setBasePath(GET_POST_PATH)
+                .setBody(body)
                 .build();
         return super.post(requestSpecification);
     }
 
-    public RestAssuredResponseImpl put(String id) {
+    public RestAssuredResponseImpl put(String id, AuthorPojo body) {
         RequestSpecification requestSpecification = new RequestSpecBuilder()
                 .setBasePath(GET_PUT_DELETE_BY_ID_PATH)
                 .addPathParam("id", id)
+                .setBody(body)
                 .build();
         return super.put(requestSpecification);
     }
