@@ -40,3 +40,4 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/Avenga-all-1.0-SNAPSHOT-tests.jar

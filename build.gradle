@@ -9,11 +9,41 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    restAssured = '5.5.5'
+    testng = '7.11.0'
+    lombok = '1.18.38'
+    allure = '2.29.1'
+    jacksonCore = '2.19.1'
+    jacksonDatabind = '2.19.1'
+}
+
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation group: 'io.rest-assured', name: 'rest-assured', version: "${restAssured}"
+    implementation group: 'org.testng', name: 'testng', version: "${testng}"
+    implementation group: 'org.projectlombok', name: 'lombok', version: "${lombok}"
+    implementation group: 'io.qameta.allure', name: 'allure-testng', version: "${allure}"
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: "${jacksonCore}"
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "${jacksonDatabind}"
+
+}
+
+tasks.register('fatJar', Jar) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    manifest {
+        attributes 'Main-Class': ' org.testng.TestNG'
+    }
+    archiveClassifier.set("tests")
+    from sourceSets.test.output + sourceSets.test.allSource
+    archiveBaseName.set(project.name + '-all')
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    destinationDirectory.set(file("$rootDir"))
+    with jar
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
 }
 
 test {
-    useJUnitPlatform()
+    useTestNG()
+    systemProperties System.getProperties()
 }
