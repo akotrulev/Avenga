@@ -16,7 +16,6 @@ on:
 jobs:
   build:
     runs-on: self-hosted
-
-  steps:
+    steps:
     - name: Build fatjar
       run:  ./gradlew fatJar
