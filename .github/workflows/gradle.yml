@@ -37,9 +37,6 @@ jobs:
           name: fat-jar
           path: build/libs/*-SNAPSHOT.jar
           retention-days: 1
-  runTest:
-    runs-on: self-hosted
-    steps:
       - name: Run tests
         uses: actions/setup-java@v4
         with:
