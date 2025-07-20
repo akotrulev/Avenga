@@ -30,3 +30,9 @@ jobs:
 
       - name: Build Fat JAR with Gradle
         run: ./gradlew clean fatJar
+      - name: Upload Fat JAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fat-jar
+          path: build/libs/*-SNAPSHOT.jar
+          retention-days: 1
