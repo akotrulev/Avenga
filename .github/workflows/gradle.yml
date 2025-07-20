@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: fat-jar
-          path: /*-SNAPSHOT-tests.jar
+          path: Avenga-all-1.0-SNAPSHOT-tests.jar
           retention-days: 1
       - name: Run tests
         uses: actions/setup-java@v4
