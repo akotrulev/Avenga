@@ -47,7 +47,7 @@ public class BookTest extends BaseTest {
     }
     @Test(description = "User is able to create a book", dataProvider = "page_count")
     public void postValidBook(int pageCount) {
-        String publishDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS"));
+        String publishDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
         BookPojo body = BookPojo.builder()
                 .title("test title")
                 .publishDate(publishDate)
