@@ -32,12 +32,16 @@ public class BookAction extends BaseAction {
         return super.get(requestSpecification);
     }
 
-    public RestAssuredResponseImpl post(BookPojo body) {
+    public RestAssuredResponseImpl postGenericBody(Object body) {
         RequestSpecification requestSpecification = new RequestSpecBuilder()
                 .setBasePath(GET_POST_PATH)
                 .setBody(body)
                 .build();
         return super.post(requestSpecification);
+    }
+
+    public RestAssuredResponseImpl post(BookPojo body) {
+        return postGenericBody(body);
     }
 
     public RestAssuredResponseImpl put(int id, BookPojo body) {
