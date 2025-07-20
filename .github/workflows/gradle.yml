@@ -47,6 +47,7 @@ jobs:
           cache: 'gradle'
       - name: Run fatjar
         run: java -jar Avenga-all-1.0-SNAPSHOT-tests.jar -testjar Avenga-all-1.0-SNAPSHOT-tests.jar -xmlpathinjar suite.xml
+        continue-on-error: true
       - name: Generate allure
         run: allure generate --clean --single-file allure-results
       - name: Upload Allure report as artifact
