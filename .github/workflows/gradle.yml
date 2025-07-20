@@ -46,6 +46,6 @@ jobs:
           distribution: 'temurin'
           cache: 'gradle'
       - name: Run fatjar
-        run: java -jar Avenga-all-1.0-SNAPSHOT-tests.jar -testJar Avenga-all-1.0-SNAPSHOT-tests.jar
+        run: java -jar Avenga-all-1.0-SNAPSHOT-tests.jar -testjar Avenga-all-1.0-SNAPSHOT-tests.jar -xmlpathinjar suite.xml
       - name: Generate allure
         run: allure generate --clean --single-file allure-results

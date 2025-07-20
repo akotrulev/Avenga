@@ -46,3 +46,4 @@ bin/
 /.idea/
 /allure-results/
 /allure-report/
+/test-output/
