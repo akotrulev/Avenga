@@ -43,6 +43,9 @@ tasks.register('fatJar', Jar) {
     destinationDirectory.set(file("$rootDir"))
     with jar
     exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
+    doLast {
+        println "Fat JAR created at: ${archiveFile.get().asFile.absolutePath}"
+    }
 }
 
 test {
