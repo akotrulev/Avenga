@@ -49,3 +49,9 @@ jobs:
         run: java -jar Avenga-all-1.0-SNAPSHOT-tests.jar -testjar Avenga-all-1.0-SNAPSHOT-tests.jar -xmlpathinjar suite.xml
       - name: Generate allure
         run: allure generate --clean --single-file allure-results
+      - name: Upload Allure report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Allure-Report.html
+          path: allure-report/index.html
+          retention-days: 1
