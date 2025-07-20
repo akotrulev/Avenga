@@ -9,6 +9,7 @@ import org.testng.asserts.SoftAssert;
 import pojo.error.ErrorPojo;
 import pojo.book.BookPojo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -46,7 +47,7 @@ public class BookTest extends BaseTest {
     }
     @Test(description = "User is able to create a book", dataProvider = "page_count")
     public void postValidBook(int pageCount) {
-        String publishDate = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
+        String publishDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS"));
         BookPojo body = BookPojo.builder()
                 .title("test title")
                 .publishDate(publishDate)
