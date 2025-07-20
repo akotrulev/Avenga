@@ -31,6 +31,8 @@ jobs:
 
       - name: Build Fat JAR with Gradle
         run: ./gradlew clean fatJar
+      - name: Show current working directory
+        run: pwd
       - name: Upload Fat JAR artifact
         uses: actions/upload-artifact@v4
         with:
