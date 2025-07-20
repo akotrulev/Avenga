@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Smoke">
+    <test name="API-Smoke" thread-count="5" parallel="classes">
+        <classes>
+            <class name="BookTest"/>
+            <class name="AuthorTest"/>
+        </classes>
+    </test>
+</suite>
