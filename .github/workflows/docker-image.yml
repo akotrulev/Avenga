@@ -17,7 +17,8 @@ jobs:
     - name: Build the Docker image
       run: docker build --no-cache -t avenga .
     - name: Start container
-      run: docker run -v "/allure-report:/app/allure-report" avenga:latest
+      shell: pwsh
+      run: docker run -v "${PWD}\allure-report:/app/allure-report" avenga:latest
     - name: Upload Report to artifact
       uses: actions/upload-artifact@v4
       with:
