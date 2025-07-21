@@ -17,10 +17,10 @@ jobs:
     - name: Build the Docker image
       run: docker build --no-cache -t avenga .
     - name: Start container
-      run: docker run -v "${PWD}\allure-report:/app/allure-report" avenga:latest
-    - name: Upload Fat JAR artifact
+      run: docker run -v "/allure-report:/app/allure-report" avenga:latest
+    - name: Upload Report to artifact
       uses: actions/upload-artifact@v4
       with:
         name: Report
-        path: ${PWD}\allure-report\index.html
+        path: /allure-report/index.html
         retention-days: 1
