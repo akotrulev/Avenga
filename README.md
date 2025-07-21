@@ -16,5 +16,5 @@ Self hosted agent is used to execute the workflows.
      - report can be found in the artifacts of the pipeline
   4. Docker
      - docker build --no-cache -t avenga .
-     - docker run -v "<local path>\allure-report:/app/allure-report" avenga:latest
+     - docker run -v "{path in local}\allure-report:/app/allure-report" avenga:latest
   5. Workflow with docker
