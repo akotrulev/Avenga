@@ -5,9 +5,12 @@
 - docker
 # Github
 Self hosted agent is used to execute the workflows.
+
+# IntelliJ
+- Enable annotation processing
 # Running tests
   1. Manually from IDE
-     - set gradle test runner to intelij so it uses testng
+     - set gradle test runner to IntelliJ (or IDE of choice) so it uses testng
   2. FatJar
       - ./gradlew clean fatJar
      - java -jar Avenga-all-1.0-SNAPSHOT-tests.jar -testjar Avenga-all-1.0-SNAPSHOT-tests.jar -xmlpathinjar suite.xml
