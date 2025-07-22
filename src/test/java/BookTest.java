@@ -15,24 +15,29 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 public class BookTest extends BaseTest {
+    private final BookAction bookAction;
+
+    public BookTest() {
+        bookAction = new BookAction();
+    }
 
     @Test(description = "User is able to get all books")
     public void getAllBooks() {
-        RestAssuredResponseImpl response = new BookAction().get();
+        RestAssuredResponseImpl response = bookAction.get();
         Assert.assertEquals(response.statusCode(), HttpStatus.SC_OK, "Status code does not match");
         Assert.assertTrue(Arrays.stream(response.as(BookPojo[].class)).findAny().isPresent());
     }
 
     @Test(description = "User is able to get a book by id")
     public void getBookById() {
-        RestAssuredResponseImpl response = new BookAction().getById(1);
+        RestAssuredResponseImpl response = bookAction.getById(1);
         Assert.assertEquals(response.statusCode(), HttpStatus.SC_OK, "Status code does not match");
         Assert.assertEquals(response.as(BookPojo.class).getId(), 1);
     }
 
     @Test(description = "User can not get a book by id that does not exist")
     public void getBookByIdDoesNotExist() {
-        RestAssuredResponseImpl response = new BookAction().getById(1000000);
+        RestAssuredResponseImpl response = bookAction.getById(1000000);
         Assert.assertEquals(response.statusCode(), HttpStatus.SC_NOT_FOUND, "Status code does not match");
     }
 
@@ -48,7 +53,7 @@ public class BookTest extends BaseTest {
                 .publishDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")))
                 .pageCount(pageCount)
                 .build();
-        RestAssuredResponseImpl response = new BookAction().post(body);
+        RestAssuredResponseImpl response = bookAction.post(body);
         SoftAssert softAssert = new SoftAssert();
         Assert.assertEquals(response.statusCode(), HttpStatus.SC_OK, "Status code does not match");
         BookPojo responseBody = response.as(BookPojo.class);
@@ -63,7 +68,7 @@ public class BookTest extends BaseTest {
         ObjectNode objectNode = new ObjectMapper().valueToTree(new BookPojo());
         objectNode.put("pageCount", 1.3435);
 
-        RestAssuredResponseImpl response = new BookAction().postGenericBody(objectNode);
+        RestAssuredResponseImpl response = bookAction.postGenericBody(objectNode);
         SoftAssert softAssert = new SoftAssert();
         Assert.assertEquals(response.statusCode(), HttpStatus.SC_BAD_REQUEST, "Status code does not match");
         ErrorPojo responseBody = response.as(ErrorPojo.class);
@@ -77,7 +82,7 @@ public class BookTest extends BaseTest {
         ObjectNode objectNode = new ObjectMapper().valueToTree(new BookPojo());
         objectNode.put("pageCount", "bad string");
 
-        RestAssuredResponseImpl response = new BookAction().postGenericBody(objectNode);
+        RestAssuredResponseImpl response = bookAction.postGenericBody(objectNode);
         SoftAssert softAssert = new SoftAssert();
         Assert.assertEquals(response.statusCode(), HttpStatus.SC_BAD_REQUEST, "Status code does not match");
         ErrorPojo responseBody = response.as(ErrorPojo.class);
@@ -88,7 +93,7 @@ public class BookTest extends BaseTest {
 
     @Test(description = "User is able to create a book with empty body")
     public void postValidBookWithEmptyBody() {
-        RestAssuredResponseImpl response = new BookAction().post(new BookPojo());
+        RestAssuredResponseImpl response = bookAction.post(new BookPojo());
         Assert.assertEquals(response.statusCode(), HttpStatus.SC_OK, "Status code does not match");
     }
 
@@ -105,7 +110,7 @@ public class BookTest extends BaseTest {
                 .publishDate(publishDate)
                 .pageCount(pageCount)
                 .build();
-        RestAssuredResponseImpl response = new BookAction().post(body);
+        RestAssuredResponseImpl response = bookAction.post(body);
         SoftAssert softAssert = new SoftAssert();
         Assert.assertEquals(response.statusCode(), HttpStatus.SC_BAD_REQUEST, "Status code does not match");
         ErrorPojo responseBody = response.as(ErrorPojo.class);
@@ -116,7 +121,6 @@ public class BookTest extends BaseTest {
     @Test(description = "User is able to create and then search for a book")
     public void postAndGetBook() {
         int bookId = 700;
-        BookAction bookAction = new BookAction();
         BookPojo body = BookPojo.builder()
                 .id(bookId)
                 .title("test title")
@@ -145,7 +149,6 @@ public class BookTest extends BaseTest {
     @Test(description = "User is able to create and then delete a book")
     public void postAndDeleteBook() {
         int bookId = 600;
-        BookAction bookAction = new BookAction();
         BookPojo body = BookPojo.builder()
                 .id(bookId)
                 .title("test title")

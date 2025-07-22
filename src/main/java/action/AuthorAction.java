@@ -10,7 +10,7 @@ public class AuthorAction extends BaseAction {
     private final String GET_POST_PATH = basePath + "/Authors";
     private final String GET_BY_BOOK_PATH = basePath + "/Authors/authors/books/{idBook}";
 
-    public RestAssuredResponseImpl delete(String id) {
+    public RestAssuredResponseImpl delete(int id) {
         RequestSpecification requestSpecification = new RequestSpecBuilder()
                 .setBasePath(GET_PUT_DELETE_BY_ID_PATH)
                 .addPathParam("id", id)
@@ -18,7 +18,7 @@ public class AuthorAction extends BaseAction {
         return super.delete(requestSpecification);
     }
 
-    public RestAssuredResponseImpl getById(String id) {
+    public RestAssuredResponseImpl getById(int id) {
         RequestSpecification requestSpecification = new RequestSpecBuilder()
                 .setBasePath(GET_PUT_DELETE_BY_ID_PATH)
                 .addPathParam("id", id)
@@ -26,7 +26,7 @@ public class AuthorAction extends BaseAction {
         return super.get(requestSpecification);
     }
 
-    public RestAssuredResponseImpl getByBookId(String id) {
+    public RestAssuredResponseImpl getByBookId(int id) {
         RequestSpecification requestSpecification = new RequestSpecBuilder()
                 .setBasePath(GET_BY_BOOK_PATH)
                 .addPathParam("idBook", id)
@@ -48,7 +48,7 @@ public class AuthorAction extends BaseAction {
         return super.post(requestSpecification);
     }
 
-    public RestAssuredResponseImpl put(String id, AuthorPojo body) {
+    public RestAssuredResponseImpl put(int id, AuthorPojo body) {
         RequestSpecification requestSpecification = new RequestSpecBuilder()
                 .setBasePath(GET_PUT_DELETE_BY_ID_PATH)
                 .addPathParam("id", id)
