@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build -t avenga .
+      run: docker build --no-cache -t avenga .
     - name: Start container
       run: docker run -v ".\allure-report:/app/allure-report" avenga:latest
     - name: Upload Report to artifact
