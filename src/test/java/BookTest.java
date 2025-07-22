@@ -115,9 +115,10 @@ public class BookTest extends BaseTest {
 
     @Test(description = "User is able to create and then search for a book")
     public void postAndGetBook() {
+        int bookId = 700;
         BookAction bookAction = new BookAction();
         BookPojo body = BookPojo.builder()
-                .id(600)
+                .id(bookId)
                 .title("test title")
                 .publishDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")))
                 .pageCount(20)
@@ -131,7 +132,7 @@ public class BookTest extends BaseTest {
         softAssert.assertEquals(responseBody.getPublishDate(), body.getPublishDate());
         softAssert.assertAll("Different data in book creation");
 
-        response = bookAction.getById(600);
+        response = bookAction.getById(bookId);
 
         Assert.assertEquals(response.statusCode(), HttpStatus.SC_OK, "Status code does not match");
         responseBody = response.as(BookPojo.class);
@@ -139,6 +140,33 @@ public class BookTest extends BaseTest {
         softAssert.assertEquals(responseBody.getTitle(), body.getTitle());
         softAssert.assertEquals(responseBody.getPublishDate(), body.getPublishDate());
         softAssert.assertAll("Different data when getting a book");
+    }
 
+    @Test(description = "User is able to create and then delete a book")
+    public void postAndDeleteBook() {
+        int bookId = 600;
+        BookAction bookAction = new BookAction();
+        BookPojo body = BookPojo.builder()
+                .id(bookId)
+                .title("test title")
+                .publishDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")))
+                .pageCount(20)
+                .build();
+        RestAssuredResponseImpl response = bookAction.post(body);
+        SoftAssert softAssert = new SoftAssert();
+        Assert.assertEquals(response.statusCode(), HttpStatus.SC_OK, "Status code does not match");
+        BookPojo responseBody = response.as(BookPojo.class);
+        softAssert.assertEquals(responseBody.getPageCount(), body.getPageCount());
+        softAssert.assertEquals(responseBody.getTitle(), body.getTitle());
+        softAssert.assertEquals(responseBody.getPublishDate(), body.getPublishDate());
+        softAssert.assertAll("Different data in book creation");
+
+        response = bookAction.delete(bookId);
+
+        Assert.assertEquals(response.statusCode(), HttpStatus.SC_OK, "Status code does not match");
+
+        // Verify book was deleted
+        response = bookAction.getById(bookId);
+        Assert.assertEquals(response.statusCode(), HttpStatus.SC_NOT_FOUND, "Status code does not match");
     }
 }
